@@ -1,37 +1,33 @@
 # Jellyfin Tools
-I made these scripts to help ease the updating flow of Jellyfin for myself. I run Jellyfin as a service on Ubuntu 22.04, so just take that into account if you are going to use the scripts.
+
+I created these scripts to streamline the updating process of Jellyfin for my personal use. I run Jellyfin as a service on Ubuntu 22.04, so please keep that in mind if you decide to utilize the scripts.
 
 ## Scripts
-For now, there are three scripts:
+
+Currently, there are three scripts available:
 
 ### `create_jellyfin_backup.sh`
 
-Creates a tarball called `jellyfin_backup.tar.gz` which contains your Jellyfin **data** and **config** directories.
+Creates a tarball named `jellyfin_backup.tar.gz`, containing your Jellyfin **data** and **config** directories.
 
 ### `update_jellyfin_installation.sh`
 
-Updates Jellyfin using `apt`. Also prompts you to create aliases with which to control Jellyfin:
+Updates Jellyfin using `apt`. It also prompts you to create aliases for controlling Jellyfin:
 
 ### `restore_jellyfin_backup.sh`
 
-Untars the tarball created using `create_jellyfin_backup.sh` and puts the **data** and **config** into the appropriate locations on your machine.
+Untars the tarball created by `create_jellyfin_backup.sh` and places the **data** and **config** into the appropriate directories on your system.
 
-The order in which the scripts have been presented is also the order in which they should be run. Although hopefully you won't have to run `restore_jellyfin_backup.sh`.
+The presented order of the scripts reflects the recommended sequence of execution, though ideally, you won't need to run `restore_jellyfin_backup.sh`.
 
 - `restart_jellyfin`: Restarts the Jellyfin service.
-
 - `start_jellyfin`: Starts the Jellyfin service.
-
 - `stop_jellyfin`: Stops the Jellyfin service.
-
-- `status_jellyfin`: Gives you the Jellyfin service status.
+- `status_jellyfin`: Provides the current status of the Jellyfin service.
 
 ## Guide
 
-1. Clone repo or download scripts individually
-
-2. Make sure that the scripts are executable: `sudo chmod +x <script.sh>`
-
-3. Run `create_jellyfin_backup.sh` and `update_jellyfin_installation.sh`.
-
-4. Emergency - If something breaks, install the old version of Jellyfin and restore your backup using `restore_jellyfin_backup.sh`.
+1. Clone the repository or download the scripts individually.
+2. Ensure that the scripts are executable: `sudo chmod +x <script.sh>`.
+3. Execute `create_jellyfin_backup.sh` and `update_jellyfin_installation.sh`.
+4. In case of emergencies, if something goes wrong, install the previous version of Jellyfin and restore your backup using `restore_jellyfin_backup.sh`.
