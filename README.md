@@ -8,13 +8,15 @@ For now, there are three scripts:
 
 Creates a tarball called `jellyfin_backup.tar.gz` which contains your Jellyfin **data** and **config** directories.
 
+### `update_jellyfin_installation.sh`
+
+Updates Jellyfin using `apt`. Also prompts you to create aliases with which to control Jellyfin:
+
 ### `restore_jellyfin_backup.sh`
 
 Untars the tarball created using `create_jellyfin_backup.sh` and puts the **data** and **config** into the appropriate locations on your machine.
 
-### `update_jellyfin_installation.sh`
-
-Updates Jellyfin using `apt`. Also prompts you to create aliases with which to control Jellyfin:
+The order in which the scripts have been presented is also the order in which they should be run. Although hopefully you won't have to run `restore_jellyfin_backup.sh`.
 
 - `restart_jellyfin`: Restarts the Jellyfin service.
 
@@ -23,3 +25,13 @@ Updates Jellyfin using `apt`. Also prompts you to create aliases with which to c
 - `stop_jellyfin`: Stops the Jellyfin service.
 
 - `status_jellyfin`: Gives you the Jellyfin service status.
+
+## Guide
+
+1. Clone repo or download scripts individually
+
+2. Make sure that the scripts are executable: `sudo chmod +x <script.sh>`
+
+3. Run `create_jellyfin_backup.sh` and `update_jellyfin_installation.sh`.
+
+4. Emergency - If something breaks, install the old version of Jellyfin and restore your backup using `restore_jellyfin_backup.sh`.
