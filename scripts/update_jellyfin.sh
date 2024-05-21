@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Update Jellyfin
-echo "Updating Jellyfin through repository using curl."
+echo "Updating Jellyfin through repository using apt."
 sudo apt update && sudo apt upgrade jellyfin -y
 
 # Prompt user to install aliases
