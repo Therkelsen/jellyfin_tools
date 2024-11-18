@@ -14,16 +14,16 @@ Creates a tarball named `jellyfin_backup.tar.gz`, containing your Jellyfin **dat
 
 Updates Jellyfin using `apt`. It also prompts you to create aliases for controlling Jellyfin:
 
+- `restart_jellyfin`: Restarts the Jellyfin service.
+- `start_jellyfin`: Starts the Jellyfin service.
+- `stop_jellyfin`: Stops the Jellyfin service.
+- `status_jellyfin`: Provides the current status of the Jellyfin service.
+
 ### `restore_jellyfin_backup.sh`
 
 Untars the tarball created by `create_jellyfin_backup.sh` and places the **data** and **config** into the appropriate directories on your system.
 
 The presented order of the scripts reflects the recommended sequence of execution, though ideally, you won't need to run `restore_jellyfin_backup.sh`.
-
-- `restart_jellyfin`: Restarts the Jellyfin service.
-- `start_jellyfin`: Starts the Jellyfin service.
-- `stop_jellyfin`: Stops the Jellyfin service.
-- `status_jellyfin`: Provides the current status of the Jellyfin service.
 
 ## Guide
 
