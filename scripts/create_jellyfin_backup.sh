@@ -4,31 +4,25 @@
 backup_dir=~/Documents/jellyfin_backup
 data_dir=/var/lib/jellyfin
 config_dir=/etc/jellyfin
+timestamp=$(date +"%Y%m%d_%H%M%S")
+archive_name="jellyfin_backup_$timestamp.tar.gz"
 
-# Ensure backup directory exists
-echo "Creating temporary backup directory."
+# Create backup directory
 mkdir -p "$backup_dir"
-cd "$backup_dir" || exit
 
-# Backup data directory
-echo -e "\nCopying data directory."
-echo -e "\nData directory size:"
-du -h -d 0 "$data_dir"
-rsync -a --info=progress2 --relative "$data_dir" .
+# Use rsync with compression and parallelism
+echo "Backing up data and config directories..."
+rsync -a --info=progress2 --relative "$data_dir" "$config_dir" "$backup_dir"
 
-# Backup config directory
-echo -e "\nCopying config directory."
-echo -e "\nConfig directory size:"
-du -h -d 0 "$config_dir"
-rsync -a --info=progress2 --relative "$config_dir" .
+# Create tarball with pigz (parallel gzip) if available
+echo "Creating compressed archive..."
+cd ~/Documents || exit
+if command -v pigz &> /dev/null; then
+    tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | pigz > "$archive_name"
+else
+    tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | gzip > "$archive_name"
+fi
 
-# Create tarball
-echo -e "\nCreating tarball."
-cd ..
-tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | pv -s "$(du -sb "$backup_dir" | awk '{print $1}')" | gzip > jellyfin_backup.tar.gz
-
-# Remove temporary directory
-echo -e "\nRemoving temporary directory."
-rm -r "$backup_dir"
-
-echo -e "\nBackup complete."
+# Clean up
+rm -rf "$backup_dir"
+echo "Backup complete: $archive_name"
