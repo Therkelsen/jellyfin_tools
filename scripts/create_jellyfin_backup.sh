@@ -46,10 +46,15 @@ fi
 # Create compressed archive using pigz if available
 echo "Creating compressed archive..."
 cd ~/Documents || exit
+
+# Get size of the backup directory in bytes
+backup_size=$(du -sb "$backup_dir" | awk '{print $1}')
+
+# Use pv to show progress
 if command -v pigz &> /dev/null; then
-    tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | pigz > "$archive_name"
+    tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | pv -s "$backup_size" | pigz > "$archive_name"
 else
-    tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | gzip > "$archive_name"
+    tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | pv -s "$backup_size" | gzip > "$archive_name"
 fi
 
 # Clean up
