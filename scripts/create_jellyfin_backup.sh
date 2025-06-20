@@ -51,11 +51,7 @@ cd ~/Documents || exit
 backup_size=$(du -sb "$backup_dir" | awk '{print $1}')
 
 # Use pv to show progress
-if command -v pigz &> /dev/null; then
-    tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | pv -s "$backup_size" | pigz > "$archive_name"
-else
-    tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | pv -s "$backup_size" | gzip > "$archive_name"
-fi
+tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | pv -s "$backup_size" | pigz > "$archive_name"
 
 # Clean up
 rm -rf "$backup_dir"
