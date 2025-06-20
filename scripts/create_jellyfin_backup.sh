@@ -18,9 +18,9 @@ rsync -a --info=progress2 --relative "$data_dir" "$config_dir" "$backup_dir"
 echo "Creating compressed archive..."
 cd ~/Documents || exit
 if command -v pigz &> /dev/null; then
-    tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | pigz > "$archive_name"
+  tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | pigz > "$archive_name"
 else
-    tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | gzip > "$archive_name"
+  tar cf - "$(basename "$backup_dir")" -P --warning=no-file-changed | gzip > "$archive_name"
 fi
 
 # Clean up
